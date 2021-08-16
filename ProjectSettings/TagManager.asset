@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - PacDot
+  - SuperPacDot
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3875254603
+    locked: 0
+  - name: Walls
+    uniqueID: 2648237769
+    locked: 0
+  - name: Routes
+    uniqueID: 4125516065
+    locked: 0
+  - name: PacDot
+    uniqueID: 843977213
+    locked: 0
+  - name: Ghosts
+    uniqueID: 3403474167
+    locked: 0
+  - name: Players
+    uniqueID: 2326195573
+    locked: 0
