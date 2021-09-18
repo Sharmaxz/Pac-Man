@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.beetlecircus.serializabledictionary": "0.1.2-preview.4",
     "com.unity.2d.animation": "6.0.4",
     "com.unity.2d.pixel-perfect": "5.0.0",
     "com.unity.2d.psdimporter": "5.0.4",
@@ -48,5 +49,14 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "Rain Games",
+      "url": "https://office.rain-games.com:4873",
+      "scopes": [
+        "com.beetlecircus"
+      ]
+    }
+  ]
 }

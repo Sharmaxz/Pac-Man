@@ -8,49 +8,48 @@ using Random = UnityEngine.Random;
 
 public class GhostRoute : MonoBehaviour
 {
-    public Color initialColor;
+    public bool blink;
     public Color color;
     public LineRenderer line;
+
+    private bool _turn;
+    private float _timeLeft;
+    private Color _tempColor;
+    private Color _targetColor;
     
-    public float timeLeft;
-    Color targetColor;
-    private bool turn = false;
     void Update()
     {
-        if (timeLeft <= Time.deltaTime)
+        if (blink && _timeLeft <= Time.deltaTime)
         {
-            if (turn)
+            if (_turn)
             {
-                color = targetColor;
-                targetColor = new Color(initialColor.r, initialColor.b, initialColor.g, initialColor.a);
-                turn = false;
+                _tempColor = _targetColor;
+                _targetColor = new Color(_tempColor.r, _tempColor.b, _tempColor.g, _tempColor.a);
+                _turn = false;
             }
             else
             {
-                color = initialColor;
-                targetColor = new Color(initialColor.r, initialColor.b, initialColor.g, initialColor.a + (10f / 255f));
-                turn = true;
+                _tempColor = color;
+                _targetColor = new Color(_tempColor.r, _tempColor.b, _tempColor.g, _tempColor.a + (10f / 255f));
+                _turn = true;
             }
-            timeLeft = 0.4f;
+            _timeLeft = 0.4f;
         }
         else
         {
-            color = Color.Lerp(color, targetColor, Time.deltaTime / timeLeft);
-            line.startColor = color;
-            line.endColor = color;
-            timeLeft -= Time.deltaTime;
+            _tempColor = Color.Lerp(color, _targetColor, Time.deltaTime / _timeLeft);
+            SetLineColor(_tempColor);
+            _timeLeft -= Time.deltaTime;
         }
-        
     }
 
-    void OnValidate()
+    private void OnValidate()
     {
         line.startColor= color;
         line.endColor = color;
     }
-
-
-    public void Set(List<GameObject> path)
+    
+    public void SetPath(List<GameObject> path)
     {
         if (path != null)
         {
@@ -84,7 +83,7 @@ public class GhostRoute : MonoBehaviour
                 previous = step.transform;
             }
 
-            if (temp[0] == temp[1])
+            if (temp.Count > 1 && temp[0] == temp[1])
             {
                 temp.RemoveAt(0);
             }
@@ -103,5 +102,11 @@ public class GhostRoute : MonoBehaviour
             line.widthMultiplier = 1f;
             line.SetPositions(positions);
         }
+    }
+
+    public void SetLineColor(Color c)
+    {
+        line.startColor = c;
+        line.endColor = c;
     }
 }

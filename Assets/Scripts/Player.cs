@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public GameObject current;
-    public string direction = "";
-    [Range(0, 100)]
-    public int speed = 50;
+    public string direction;
+    [Range(0, 50)]
+    public int speed = 20;
 
     public Rigidbody2D rigidbody;
     public Animator animator;
@@ -16,20 +17,29 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
         if (path[0] && Input.GetKey(KeyCode.W))
         {
+            direction = "up";
             Move(0, speed);
         }
         else if (path[1] && Input.GetKey(KeyCode.D))
         {
+            direction = "right";
             Move(speed, 0);
         }
         else if (path[2] && Input.GetKey(KeyCode.S))
         {
+            direction = "down";
             Move(0, -speed);
         }
-        else if (path[3] &&Input.GetKey(KeyCode.A))
+        else if (path[3] && Input.GetKey(KeyCode.A))
         {
+            direction = "left";
             Move(-speed, 0);
         }
     }
@@ -37,7 +47,7 @@ public class Player : MonoBehaviour
     private void Move(int x, int y)
     {
         CheckDirection(x, y);
-        rigidbody.velocity = new Vector2(Time.deltaTime * 100 * x, Time.deltaTime * 100 * y);
+        rigidbody.velocity = new Vector2(x, y);
         animator.SetBool("move", true);
     }
 
@@ -60,7 +70,7 @@ public class Player : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         } 
     }
-    
+
     private void Stop()
     {
         animator.SetBool("move", false);
@@ -78,12 +88,20 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (colliders.Find(item => item.name == "Pacman" ).IsTouching(collision)  && 
+        if (colliders.Find(item => item.name == "Pacman").IsTouching(collision) && 
             collision.name == "Cell")
         {
             current = collision.gameObject;
-            // transform.position = current.transform.position;
-            path = current.GetComponent<Cell>().CheckPath();
+            path = current.GetComponent<Cell>().AvailablePath();
         } 
     }
+    
+    // private void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     if (colliders.Find(item => item.name == "Pacman").IsTouching(collision) && 
+    //         collision.name == "Cell")
+    //     {
+    //         
+    //     } 
+    // }
 }

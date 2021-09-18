@@ -16,10 +16,9 @@ public class Cell : MonoBehaviour
     {
         distance = 0;
         parent = null;
-
     }
 
-    public List<bool> CheckPath()
+    public List<bool> AvailablePath()
     {
         var path = new List<bool> {true, true, true, true};
 
